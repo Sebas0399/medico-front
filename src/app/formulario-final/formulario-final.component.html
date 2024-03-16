@@ -1,0 +1,299 @@
+<div>
+
+    <!-- Cabecera -->
+    <section class="cebecera">
+        <p-toast></p-toast>
+
+        <!-- Fila 1 -->
+
+        <div>INSTITUCIÓN DEL SISTEMA
+
+        </div>
+        <div>UNIDAD OPERATIVA</div>
+        <div>COD. DO</div>
+        <div class="c-localizacion">COD. LOCALIZACIÓN</div>
+        <div class="h-clinica">NUMERO DE HISTORIA CLINICA
+            <!-- <p [(ngModel)]="nroHistoriaClinica"></p> -->
+        </div>
+
+        <!-- Fila 2 -->
+
+        <div class="imagen">Imagen </div>
+        <div>Parroquia
+            <p-dropdown [filter]="true" filterBy="nombre" [options]="listParroquias" [(ngModel)]="selectedParroquia"
+                optionLabel="nombre" [showClear]="true" placeholder="Seleccione una parroquia"></p-dropdown>
+        </div>
+        <div>Canton
+            <p-dropdown [filter]="true" filterBy="nombre" [options]="listCantones" [(ngModel)]="selectedCanton"
+                optionLabel="nombre" [showClear]="true" placeholder="Seleccione un canton"
+                (ngModelChange)="listarParroquias()"></p-dropdown>
+
+
+        </div>
+        <div>Provincia
+            <p-dropdown [filter]="true" filterBy="nombre" [options]="provincias" [(ngModel)]="selectedProvincia"
+                optionLabel="nombre" [showClear]="true" placeholder="Seleccione una provincia"
+                (ngModelChange)="listarCantones()"></p-dropdown>
+
+            <!-- <select name="" id="">
+                @for (item of provincias; track item.codigo) {
+                <option value="" for>{{item.nombre}}</option>
+
+                }
+            </select> -->
+        </div>
+
+    </section>
+    <!-- Registro de admision -->
+
+    <section class="admision">
+
+        <div class="titulo">
+            <h2>1 REGISTRO DE ADMISIÓN</h2>
+        </div>
+        <section class="fila-1">
+            <div>
+                <label for="apellidoPaterno">Apellido Paterno</label>
+                <input pInputText id="apellidoPaterno" [(ngModel)]="paciente.apellidoPaterno" />
+            </div>
+            <div>
+                <label for="apellidoMaterno">Apellido Materno</label>
+                <input pInputText id="apellidoMaterno" [(ngModel)]="paciente.apellidoMaterno" />
+            </div>
+            <div>
+                <label for="primerNombre">Primer Nombre</label>
+                <input pInputText id="primerNombre" [(ngModel)]="paciente.primerNombre" />
+            </div>
+            <div>
+                <label for="segundoNombre">Segundo Nombre</label>
+                <input pInputText id="segundoNombre" [(ngModel)]="paciente.segundoNombre" />
+            </div>
+
+            <div>
+                <label for="cedula">Cedula</label>
+                <input pInputText id="cedula" [(ngModel)]="paciente.cedula" (keyup)="consultarUsuario()" />
+            </div>
+        </section>
+        <section class="fila-2">
+            <div>
+                <label for="direccion">Dirección de residencia habitual (calle y N. Manzana y Casa)</label>
+                <input pInputText id="direccion" [(ngModel)]="paciente.direccion" />
+            </div>
+
+            <div>
+                <label for="barrio">Barrio</label>
+                <input pInputText id="barrio" [(ngModel)]="paciente.barrio" />
+            </div>
+
+
+            <div>
+                <label for="parroquia">Parroquia</label>
+                <input pInputText id="parroquia" [(ngModel)]="paciente.parroquiaPaciente" />
+            </div>
+
+
+            <div>
+                <label for="canton">Canton</label>
+                <input pInputText id="canton" [(ngModel)]="paciente.cantonPaciente" />
+            </div>
+
+            <div>
+                <label for="provincia">Provincia</label>
+                <input pInputText id="provincia" [(ngModel)]="paciente.provinciaPaciente" />
+            </div>
+
+            <div>
+                <label for="telefono">N Telefono</label>
+                <input pInputText id="telefono" [(ngModel)]="paciente.numeroTelefono" />
+            </div>
+
+        </section>
+
+        <section class="fila-3">
+            <div>
+                <label for="fechaNacimiento">Fecha nacimiento</label>
+                <input pInputText id="fechaNacimiento" [(ngModel)]="paciente.fechaNacimiento" />
+            </div>
+
+            <div>
+                <label for="lugarNacimiento">Lugar de nacimiento</label>
+                <input pInputText id="lugarNacimiento" [(ngModel)]="paciente.lugarNacimiento" />
+            </div>
+
+
+            <div>
+                <label for="nacionalidad">Nacionalidad (País)</label>
+                <input pInputText id="nacionalidad" [(ngModel)]="paciente.nacionalidad" />
+            </div>
+
+
+            <div>
+                <label for="grupoCultural">Grupo Cultural</label>
+                <input pInputText id="grupoCultural" [(ngModel)]="paciente.grupoCultural" />
+            </div>
+
+            <div>
+                <label for="edad">Edad</label>
+                <input pInputText id="edad" [(ngModel)]="paciente.edad" />
+            </div>
+
+            <div>
+                <label for="sexo">Sexo</label>
+                <input pInputText id="sexo" [(ngModel)]="paciente.sexo" />
+            </div>
+            <div>
+                <label for="estadoCivil">Estado Civil</label>
+                <input pInputText id="estadoCivil" [(ngModel)]="paciente.estadoCivil" />
+            </div>
+
+            <div>
+                <label for="instruccion">Instrucción ultimo año aprobado</label>
+                <input pInputText id="instruccion" [(ngModel)]="paciente.instruccionEducativa" />
+            </div>
+        </section>
+
+    </section>
+
+
+    <!-- Signos Vitales -->
+
+    <section class="signos-vitales">
+        <div>
+            <h2>2 SIGNOS VITALES</h2>
+
+        </div>
+
+        <div>
+            <label for="pa">P/A</label>
+            <input pInputText id="pa" [(ngModel)]="signosVitales.pa" />
+        </div>
+
+
+        <div>
+            <label for="fc">FC</label>
+            <input pInputText id="fc" [(ngModel)]="signosVitales.fc" />
+        </div>
+
+        <div>
+            <label for="temperatura">T°C</label>
+            <input pInputText id="temperatura" [(ngModel)]="signosVitales.temperatura" />
+        </div>
+
+        <div>
+            <label for="peso">Peso</label>
+            <input pInputText id="peso" [(ngModel)]="signosVitales.peso" />
+        </div>
+
+        <div>
+            <label for="talla">Talla</label>
+            <input pInputText id="talla" [(ngModel)]="signosVitales.talla" />
+        </div>
+
+        <div>
+            <label for="so2">SO2</label>
+            <input pInputText id="so2" [(ngModel)]="signosVitales.so2" />
+        </div>
+
+        <div>
+            <label for="pc">PC</label>
+            <input pInputText id="pc" [(ngModel)]="signosVitales.pc" />
+        </div>
+    </section>
+    <!-- Antecedentes -->
+    <h2>
+        3 ANTECEDENTES PERSONALES Y FAMILIARES
+    </h2>
+
+    <section class="antecedentes">
+
+
+        <div>
+            <label for="app">APP</label>
+            <input pInputText id="app" [(ngModel)]="paciente.antecedentes.app" />
+        </div>
+
+        <div>
+            <label for="apf">APF</label>
+            <input pInputText id="apf" [(ngModel)]="paciente.antecedentes.apf" />
+        </div>
+
+        <div>
+            <label for="alergias">Alergias</label>
+            <input pInputText id="alergias" [(ngModel)]="paciente.antecedentes.alergias" />
+        </div>
+
+        <div>
+            <label for="aqx">AQX</label>
+            <input pInputText id="aqx" [(ngModel)]="paciente.antecedentes.aqx" />
+        </div>
+        <div>
+            <label for="ago">AGO</label>
+            <input pInputText id="ago" [(ngModel)]="paciente.antecedentes.ago" />
+        </div>
+    </section>
+    <!-- Enfermedad Actual -->
+    <h2>
+        4 Enfermedad Actual
+    </h2>
+    <section class="enfermedad-actual">
+
+        <div>
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="enfermedadActual"></textarea>
+        </div>
+    </section>
+
+    <!-- Examen Fisico -->
+    <h2>
+        5 Exámen Físico
+    </h2>
+    <section class="examen-fisico">
+
+        <div>
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="examenFisico"></textarea>
+        </div>
+    </section>
+
+    <!-- Diagnostico -->
+
+    <section class="diagnostico">
+        <h1>6 Diagnóstico de Ingreso</h1>
+
+        <div class="area">
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagIngreso"></textarea>
+
+        </div>
+        <h1>7 Diagnóstico de Alta</h1>
+
+        <div class="area">
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagAlta"></textarea>
+
+        </div>
+    </section>
+    <!-- Tratamiento-->
+    <h2>8 PLAN DE TRATAMIENTO</h2>
+    <section class="tratamiento">
+
+        <div>
+            <h3>INDICACIONES</h3>
+            @for (indicacion of indicaciones; track $index) {
+            <input pInputText id="ago" [(ngModel)]="indicacion[$index]" />
+            }
+            <p-button label="Añadir" (onClick)="addIndicacion()"></p-button>
+        </div>
+        <div>
+            <h3>MEDICAMENTO</h3>
+            @for (medicamento of medicamentos; track $index) {
+            <input pInputText id="ago" [(ngModel)]="medicamentos[$index] "  />
+            }
+            <p-button label="Añadir" (onClick)="addMedicamento()"></p-button>
+
+        </div>
+    </section>
+    <section>
+        <div class="end">
+            <p-button label="GuardarHistoriaClinica" (onClick)="guardarHistoriaClinica()"></p-button>
+
+        </div>
+    </section>
+
+</div>

@@ -1,0 +1,13 @@
+<p>formulario-paciente works!</p>
+<section>
+    @if (estaRegistrado) {
+        <h2>Bienvenido {{nombre}}</h2>
+        <div class="card flex justify-content-center">
+            <input type="text" pInputText />
+            <p-button label="Check" icon="pi pi-check"></p-button>
+
+        </div>
+        }@else {
+        <h2>Usuario no encontrado</h2>
+        }
+</section>
