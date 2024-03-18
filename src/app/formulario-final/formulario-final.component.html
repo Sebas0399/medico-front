@@ -53,6 +53,10 @@
         </div>
         <section class="fila-1">
             <div>
+                <label for="cedula">Cedula</label>
+                <input pInputText id="cedula" [(ngModel)]="paciente.cedula" (keyup)="consultarUsuario()" />
+            </div>
+            <div>
                 <label for="apellidoPaterno">Apellido Paterno</label>
                 <input pInputText id="apellidoPaterno" [(ngModel)]="paciente.apellidoPaterno" />
             </div>
@@ -69,10 +73,7 @@
                 <input pInputText id="segundoNombre" [(ngModel)]="paciente.segundoNombre" />
             </div>
 
-            <div>
-                <label for="cedula">Cedula</label>
-                <input pInputText id="cedula" [(ngModel)]="paciente.cedula" (keyup)="consultarUsuario()" />
-            </div>
+
         </section>
         <section class="fila-2">
             <div>
@@ -209,26 +210,26 @@
 
         <div>
             <label for="app">APP</label>
-            <input pInputText id="app" [(ngModel)]="paciente.antecedentes.app" />
+            <input pInputText id="app" [(ngModel)]="paciente.app" />
         </div>
 
         <div>
             <label for="apf">APF</label>
-            <input pInputText id="apf" [(ngModel)]="paciente.antecedentes.apf" />
+            <input pInputText id="apf" [(ngModel)]="paciente.apf" />
         </div>
 
         <div>
             <label for="alergias">Alergias</label>
-            <input pInputText id="alergias" [(ngModel)]="paciente.antecedentes.alergias" />
+            <input pInputText id="alergias" [(ngModel)]="paciente.alergias" />
         </div>
 
         <div>
             <label for="aqx">AQX</label>
-            <input pInputText id="aqx" [(ngModel)]="paciente.antecedentes.aqx" />
+            <input pInputText id="aqx" [(ngModel)]="paciente.aqx" />
         </div>
         <div>
             <label for="ago">AGO</label>
-            <input pInputText id="ago" [(ngModel)]="paciente.antecedentes.ago" />
+            <input pInputText id="ago" [(ngModel)]="paciente.ago" />
         </div>
     </section>
     <!-- Enfermedad Actual -->
@@ -283,7 +284,7 @@
         <div>
             <h3>MEDICAMENTO</h3>
             @for (medicamento of medicamentos; track $index) {
-            <input pInputText id="ago" [(ngModel)]="medicamentos[$index] "  />
+            <input pInputText id="ago" [(ngModel)]="medicamentos[$index] " />
             }
             <p-button label="Añadir" (onClick)="addMedicamento()"></p-button>
 
@@ -291,7 +292,7 @@
     </section>
     <section>
         <div class="end">
-            <p-button label="GuardarHistoriaClinica" (onClick)="guardarHistoriaClinica()"></p-button>
+            <p-button label="Guardar" (onClick)="guardarHistoriaClinica()"></p-button>
 
         </div>
     </section>

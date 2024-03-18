@@ -55,13 +55,12 @@ export class FormularioFinalComponent {
     sexo: "",
     estadoCivil: "",
     instruccionEducativa: "",
-    antecedentes: {
-      app: "",
-      apf: "",
-      alergias: "",
-      aqx: "",
-      ago: ""
-    }
+    app: "",
+    apf: "",
+    alergias: "",
+    aqx: "",
+    ago: ""
+
   }
   signosVitales = {
     pa: "",
@@ -89,15 +88,21 @@ export class FormularioFinalComponent {
   consultarUsuario() {
     if (this.paciente.cedula.length === 10) {
       obtenerPacienteFachada(this.paciente.cedula).then(r => {
-        this.paciente = r;
-        console.log(r)
+        if (r != null) {
+          this.paciente = r;
+          console.log(r)
+        }
+
         // this.messageService.add({
         //   severity: 'success', summary: 'Success', detail: 'Message Content'
         // })
         //this.paciente.apellidoPaterno = r.apellido;
         //this.paciente.primerNombre = r.nombre
       }).catch((err) => {
-
+        console.log(err)
+        this.messageService.add({
+          severity: 'error', summary: 'Success', detail: 'Paciente no encontrado'
+        })
       });
     }
   }
@@ -151,8 +156,13 @@ export class FormularioFinalComponent {
       diagnosticoIngreso: this.diagIngreso,
       diagnosticoAlta: this.diagAlta,
     }
-    console.log(historiaClinica)
-    insertarHistoriaClinicaFachada(historiaClinica)
+    insertarHistoriaClinicaFachada(historiaClinica).then(r => {
+      this.messageService.add({
+        severity: 'success', summary: 'Success', detail: 'Historia Clinica insertada'
+      })
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
 }
