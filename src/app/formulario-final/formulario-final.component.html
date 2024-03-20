@@ -13,7 +13,8 @@
         <div>COD. DO</div>
         <div class="c-localizacion">COD. LOCALIZACIÓN</div>
         <div class="h-clinica">NUMERO DE HISTORIA CLINICA
-            <!-- <p [(ngModel)]="nroHistoriaClinica"></p> -->
+            <input pInputText id="cedula" [(ngModel)]="paciente.id" disabled="true" />
+
         </div>
 
         <!-- Fila 2 -->
@@ -152,7 +153,65 @@
                 <input pInputText id="instruccion" [(ngModel)]="paciente.instruccionEducativa" />
             </div>
         </section>
+        <section class="fila-4">
+            <div>
+                <label for="fechaAdmision">Fecha de admisión</label>
+                <input pInputText id="fechaAdmision" [(ngModel)]="paciente.fechaAdmision" />
+            </div>
+            <div>
+                <label for="ocupacion">Ocupación</label>
+                <input pInputText id="ocupacion" [(ngModel)]="paciente.ocupacion" />
+            </div>
+            <div>
+                <label for="empresaTrabajo">Empresa donde trabaja</label>
+                <input pInputText id="empresaTrabajo" [(ngModel)]="paciente.empresaTrabajo" />
+            </div>
+            <div>
+                <label for="tipoSeguro">Tipo de seguro de salud</label>
+                <input pInputText id="tipoSeguro" [(ngModel)]="paciente.tipoSeguro" />
+            </div>
+            <div>
+                <label for="referido">Referido de:</label>
+                <input pInputText id="referido" [(ngModel)]="paciente.referido" />
+            </div>
+        </section>
+        <section class="fila-5">
+            <div>
+                <label for="nombreEmergencia">En caso necesario avisar a:</label>
+                <input pInputText id="nombreEmergencia" [(ngModel)]="paciente.contactoEmergenciaNombre" />
+            </div>
+            <div>
+                <label for="afinidad">Parentesco-afinidad</label>
+                <input pInputText id="afinidad" [(ngModel)]="paciente.contactoEmergenciaAfinidad" />
+            </div>
+            <div>
+                <label for="direccionContacto">Direccion</label>
+                <input pInputText id="direccionContacto" [(ngModel)]="paciente.contactoEmergenciaDireccion" />
+            </div>
+            <div>
+                <label for="numeroContacto">Nº Teléfono</label>
+                <input pInputText id="numeroContacto" [(ngModel)]="paciente.contactoEmergenciaTelefono" />
+            </div>
+        </section>
 
+        <section class="fila-6">
+            <div>
+                <label for="llegada">Forma de llegada</label>
+                <input pInputText id="llegada" [(ngModel)]="paciente.llegadaForma" />
+            </div>
+            <div>
+                <label for="llegadaInformacion">Fuente de información</label>
+                <input pInputText id="llegadaInformacion" [(ngModel)]="paciente.llegadaFuente" />
+            </div>
+            <div>
+                <label for="llegadaEntrega">Institución o persona que entrega al paciente</label>
+                <input pInputText id="llegadaEntrega" [(ngModel)]="paciente.llegadaEntrega" />
+            </div>
+            <div>
+                <label for="llegadaNumero">Nº Teléfono</label>
+                <input pInputText id="llegadaNumero" [(ngModel)]="paciente.llegadaTelefono" />
+            </div>
+        </section>
     </section>
 
 
@@ -260,13 +319,13 @@
         <h1>6 Diagnóstico de Ingreso</h1>
 
         <div class="area">
-            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagIngreso"></textarea>
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagnostico.ingreso"></textarea>
 
         </div>
         <h1>7 Diagnóstico de Alta</h1>
 
         <div class="area">
-            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagAlta"></textarea>
+            <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="diagnostico.alta"></textarea>
 
         </div>
     </section>
@@ -276,15 +335,15 @@
 
         <div>
             <h3>INDICACIONES</h3>
-            @for (indicacion of indicaciones; track $index) {
-            <input pInputText id="ago" [(ngModel)]="indicacion[$index]" />
+            @for (indicacion of tratamiento[0].indicaciones; track $index) {
+            <input pInputText id="ago" [(ngModel)]="tratamiento[0].indicaciones[$index]" />
             }
             <p-button label="Añadir" (onClick)="addIndicacion()"></p-button>
         </div>
         <div>
             <h3>MEDICAMENTO</h3>
-            @for (medicamento of medicamentos; track $index) {
-            <input pInputText id="ago" [(ngModel)]="medicamentos[$index] " />
+            @for (medicamento of tratamiento[0].medicamentos; track $index) {
+            <input pInputText id="ago" [(ngModel)]="tratamiento[0].medicamentos[$index] " />
             }
             <p-button label="Añadir" (onClick)="addMedicamento()"></p-button>
 

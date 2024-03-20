@@ -14,6 +14,8 @@ import { MessageService } from 'primeng/api';
 //
 import { obtenerPacienteFachada } from "./helpers/getUsuario";
 import { insertarHistoriaClinicaFachada } from "./helpers/saveHistoriaClinica";
+import { insertarPacienteFachada } from "./helpers/saveUsuario";
+import { insertarSignosVitales } from "./helpers/saveSignosVitales";
 
 
 @Component({
@@ -36,6 +38,7 @@ export class FormularioFinalComponent {
   selectedCanton = { codigo: "", nombre: "" }
   selectedParroquia = { codigo: "", nombre: "" }
   paciente = {
+    id: "",
     apellidoPaterno: "",
     apellidoMaterno: "",
     primerNombre: "",
@@ -55,6 +58,23 @@ export class FormularioFinalComponent {
     sexo: "",
     estadoCivil: "",
     instruccionEducativa: "",
+
+    fechaAdmision: "",
+    ocupacion: "",
+    empresaTrabajo: "",
+    tipoSeguro: "",
+    referido: "",
+    //
+    contactoEmergenciaNombre: "",
+    contactoEmergenciaAfinidad: "",
+    contactoEmergenciaDireccion: "",
+    contactoEmergenciaTelefono: "",
+    //
+    llegadaForma: "",
+    llegadaFuente: "",
+    llegadaEntrega: "",
+    llegadaTelefono: "",
+    //
     app: "",
     apf: "",
     alergias: "",
@@ -75,15 +95,21 @@ export class FormularioFinalComponent {
 
   enfermedadActual = ""
   examenFisico = ""
-  indicaciones = [""]
-  medicamentos = [""]
-  diagIngreso = ""
-  diagAlta = ""
+
+  tratamiento = [{
+    indicaciones: [""],
+    medicamentos: [""]
+  }]
+  diagnostico = {
+    ingreso: "",
+    alta: ""
+  }
+
   addMedicamento() {
-    this.medicamentos.push("");
+    this.tratamiento[0].medicamentos.push("");
   }
   addIndicacion() {
-    this.indicaciones.push("");
+    this.tratamiento[0].indicaciones.push("");
   }
   consultarUsuario() {
     if (this.paciente.cedula.length === 10) {
@@ -144,18 +170,35 @@ export class FormularioFinalComponent {
   ngOnInit() {
     this.loadItems();
 
+
+
   }
   showDialog() {
     this.visible = true;
   }
   guardarHistoriaClinica() {
+    /*insertarPacienteFachada(this.paciente).then(r => {
+      insertarSignosVitales(this.signosVitales).then(r2 => {
+        this.messageService.add({
+          severity: 'success', summary: 'Success', detail: 'Paciente guardado'
+        })
+      })
+
+    }).catch(err => {
+      console.log(err)
+    })*/
     var historiaClinica = {
       paciente: this.paciente,
+      signosVitales: null,
+      tratamiento: this.tratamiento,
+      diagnistico: this.diagnostico,
       enfermedadActual: this.enfermedadActual,
       examenFisico: this.examenFisico,
-      diagnosticoIngreso: this.diagIngreso,
-      diagnosticoAlta: this.diagAlta,
+      tratamientos: this.tratamiento,
+      diagnosticoIngreso: this.diagnostico.ingreso,
+      diagnosticoAlta: this.diagnostico.alta
     }
+    console.log(historiaClinica)
     insertarHistoriaClinicaFachada(historiaClinica).then(r => {
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: 'Historia Clinica insertada'
