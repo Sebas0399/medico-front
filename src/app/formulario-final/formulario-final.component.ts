@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
 
 //
 import { obtenerPacienteFachada } from "./helpers/getUsuario";
-import { insertarHistoriaClinicaFachada } from "./helpers/saveHistoriaClinica";
+import { insertarHistoriaClinicaFachada } from "../tabla-pacientes/helpers/saveHistoriaClinica";
 import { insertarPacienteFachada } from "./helpers/saveUsuario";
 import { insertarSignosVitales } from "./helpers/saveSignosVitales";
 
@@ -203,7 +203,7 @@ export class FormularioFinalComponent {
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: 'Historia Clinica insertada'
       })
-    }).catch(err => {
+    }).catch((err) => {
       console.log(err)
     })
   }

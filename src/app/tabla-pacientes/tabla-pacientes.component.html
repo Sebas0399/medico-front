@@ -1,0 +1,244 @@
+<p-toast></p-toast>
+
+<!-- Historia clinica -->
+<p-dialog header="Historia Clinica" [(visible)]="visibleHistorias" [style]="{width: '75vw'} " [modal]="true">
+    <p-button label="Nuevo" (onClick)="visibleNuevaHistoria=true"></p-button>
+
+    <div class="card">
+        <p-table [value]="historiasClinicas" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Enfermedad Actual</th>
+                    <th>Examen Fisico</th>
+                    <th>Diagnostico Ingreso</th>
+                    <th>Diagnostico Alta</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-historiaClinica>
+                <tr>
+                    <td>{{ historiaClinica.id }}</td>
+                    <td>{{ historiaClinica.enfermedadActual }}</td>
+                    <td>{{ historiaClinica.examenFisico }}</td>
+                    <td>{{ historiaClinica.diagnosticoIngreso }}</td>
+                    <td>{{ historiaClinica.diagnosticoAlta }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+<!-- Modal crear nueva historia clinica -->
+<p-dialog header="Ingrese los datos" [(visible)]="visibleNuevaHistoria" [style]="{width: '75vw'} " [modal]="true">
+    <div class="card-form">
+        <div>
+            <label for="enfermedadActual">Enfermedad Actual</label>
+            <input pInputText id="enfermedadActual" [(ngModel)]="historiaClinicaIngresar.enfermedadActual" />
+        </div>
+        <div>
+            <label for="examenFisico">Exámen Físico</label>
+            <input pInputText id="examenFisico" [(ngModel)]="historiaClinicaIngresar.examenFisico" />
+        </div>
+        <div>
+            <label for="diagnosticoIngreso">Diagnostico Ingreso</label>
+            <input pInputText id="diagnosticoIngreso" [(ngModel)]="historiaClinicaIngresar.diagnosticoIngreso" />
+        </div>
+        <div>
+            <label for="diagnosticoAlta">Diagnostico Alta</label>
+            <input pInputText id="diagnosticoAlta" [(ngModel)]="historiaClinicaIngresar.diagnosticoAlta" />
+        </div>
+
+        <p-button label="Insertar" (onClick)="guardarHistoriaClinica()"></p-button>
+
+    </div>
+
+</p-dialog>
+<!-- Modal crear nuevo paciente -->
+<p-dialog header="Nuevo Paciente" [(visible)]="visiblePaciente" [style]="{width: '75vw'} " [modal]="true">
+    <div class="card-form">
+        <div>
+            <label for="cedula">Cedula</label>
+            <input pInputText id="cedula" [(ngModel)]="pacienteIngresar.cedula" />
+        </div>
+        <div>
+            <label for="apellidoPaterno">Apellido Paterno</label>
+            <input pInputText id="apellidoPaterno" [(ngModel)]="pacienteIngresar.apellidoPaterno" />
+        </div>
+        <div>
+            <label for="apellidoMaterno">Apellido Materno</label>
+            <input pInputText id="apellidoMaterno" [(ngModel)]="pacienteIngresar.apellidoMaterno" />
+        </div>
+        <div>
+            <label for="primerNombre">Primer Nombre</label>
+            <input pInputText id="primerNombre" [(ngModel)]="pacienteIngresar.primerNombre" />
+        </div>
+        <div>
+            <label for="segundoNombre">Segundo Nombre</label>
+            <input pInputText id="segundoNombre" [(ngModel)]="pacienteIngresar.segundoNombre" />
+        </div>
+
+
+        <div>
+            <label for="direccion">Dirección de residencia habitual (calle y N. Manzana y Casa)</label>
+            <input pInputText id="direccion" [(ngModel)]="pacienteIngresar.direccion" />
+        </div>
+
+
+
+        <div>
+            <label for="parroquia">Parroquia</label>
+            <input pInputText id="parroquia" [(ngModel)]="pacienteIngresar.parroquia" />
+        </div>
+
+
+        <div>
+            <label for="canton">Canton</label>
+            <input pInputText id="canton" [(ngModel)]="pacienteIngresar.canton" />
+        </div>
+
+        <div>
+            <label for="provincia">Provincia</label>
+            <input pInputText id="provincia" [(ngModel)]="pacienteIngresar.provincia" />
+        </div>
+
+        <div>
+            <label for="telefono">N Telefono</label>
+            <input pInputText id="telefono" [(ngModel)]="pacienteIngresar.numeroTelefono" />
+        </div>
+
+
+        <div>
+            <label for="fechaNacimiento">Fecha nacimiento</label>
+            <p-calendar [(ngModel)]="pacienteIngresar.fechaNacimiento" styleClass="calendario-compacto"
+                [inputStyle]="{'width': '100px;'}" [panelStyle]="{'max-width': '200px;'}"></p-calendar>
+        </div>
+
+        <div>
+            <label for="lugarNacimiento">Lugar de nacimiento</label>
+            <input pInputText id="lugarNacimiento" [(ngModel)]="pacienteIngresar.lugarNacimiento" />
+        </div>
+
+
+        <div>
+            <label for="nacionalidad">Nacionalidad (País)</label>
+            <input pInputText id="nacionalidad" [(ngModel)]="pacienteIngresar.nacionalidad" />
+        </div>
+
+
+        <div>
+            <label for="grupoCultural">Grupo Cultural</label>
+            <input pInputText id="grupoCultural" [(ngModel)]="pacienteIngresar.grupoCultural" />
+        </div>
+
+        <div>
+            <label for="edad">Edad</label>
+            <input pInputText id="edad" [(ngModel)]="pacienteIngresar.edad" />
+        </div>
+
+        <div>
+            <label for="sexo">Sexo</label>
+            <input pInputText id="sexo" [(ngModel)]="pacienteIngresar.sexo" />
+        </div>
+        <div>
+            <label for="estadoCivil">Estado Civil</label>
+            <input pInputText id="estadoCivil" [(ngModel)]="pacienteIngresar.estadoCivil" />
+        </div>
+
+        <div>
+            <label for="instruccion">Instrucción ultimo año aprobado</label>
+            <input pInputText id="instruccion" [(ngModel)]="pacienteIngresar.instruccionEducativa" />
+        </div>
+        <div>
+            <label for="fechaAdmision">Fecha de admisión</label>
+            <input pInputText id="fechaAdmision" [(ngModel)]="pacienteIngresar.fechaAdmision" />
+        </div>
+        <div>
+            <label for="ocupacion">Ocupación</label>
+            <input pInputText id="ocupacion" [(ngModel)]="pacienteIngresar.ocupacion" />
+        </div>
+        <div>
+            <label for="empresaTrabajo">Empresa donde trabaja</label>
+            <input pInputText id="empresaTrabajo" [(ngModel)]="pacienteIngresar.empresaTrabajo" />
+        </div>
+        <div>
+            <label for="tipoSeguro">Tipo de seguro de salud</label>
+            <input pInputText id="tipoSeguro" [(ngModel)]="pacienteIngresar.tipoSeguro" />
+        </div>
+        <div>
+            <label for="referido">Referido de:</label>
+            <input pInputText id="referido" [(ngModel)]="pacienteIngresar.referido" />
+        </div>
+        <div>
+            <label for="nombreEmergencia">En caso necesario avisar a:</label>
+            <input pInputText id="nombreEmergencia" [(ngModel)]="pacienteIngresar.contactoEmergenciaNombre" />
+        </div>
+        <div>
+            <label for="afinidad">Parentesco-afinidad</label>
+            <input pInputText id="afinidad" [(ngModel)]="pacienteIngresar.contactoEmergenciaAfinidad" />
+        </div>
+        <div>
+            <label for="direccionContacto">Direccion</label>
+            <input pInputText id="direccionContacto" [(ngModel)]="pacienteIngresar.contactoEmergenciaDireccion" />
+        </div>
+        <div>
+            <label for="numeroContacto">Nº Teléfono</label>
+            <input pInputText id="numeroContacto" [(ngModel)]="pacienteIngresar.contactoEmergenciaTelefono" />
+        </div>
+
+        <div>
+            <label for="llegada">Forma de llegada</label>
+            <input pInputText id="llegada" [(ngModel)]="pacienteIngresar.llegadaForma" />
+        </div>
+        <div>
+            <label for="llegadaInformacion">Fuente de información</label>
+            <input pInputText id="llegadaInformacion" [(ngModel)]="pacienteIngresar.llegadaFuente" />
+        </div>
+        <div>
+            <label for="llegadaEntrega">Institución o persona que entrega al paciente</label>
+            <input pInputText id="llegadaEntrega" [(ngModel)]="pacienteIngresar.llegadaEntrega" />
+        </div>
+        <div>
+            <label for="llegadaNumero">Nº Teléfono</label>
+            <input pInputText id="llegadaNumero" [(ngModel)]="pacienteIngresar.llegadaTelefono" />
+        </div>
+        <p-button label="Insertar" (onClick)="guardarPaciente()"></p-button>
+
+    </div>
+
+</p-dialog>
+
+<span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText [(ngModel)]="nombre" />
+
+</span>
+
+<p-button label="Consultar" (onClick)="consultarPorNombre()" [loading]="buscandoPacientes"></p-button>
+<p-button label="Nuevo" (onClick)="visiblePaciente=true"></p-button>
+
+<div class="card">
+    <p-table [value]="pacientes" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Historia Clinica</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-paciente>
+            <tr>
+                <td>{{ paciente.cedula }}</td>
+                <td>{{ paciente.primerNombre }}</td>
+                <td>{{ paciente.apellidoPaterno }}</td>
+                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.sexo }}</td>
+                <td> <p-button label="Nueva" (onClick)="abirHistoriaClinica(paciente)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
