@@ -70,7 +70,44 @@
     padding: 10px;
 }
 
+.admision .fila-4 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: solid black 1px;
+}
 
+.admision .fila-4>* {
+    /* Target all direct child elements */
+    outline: 1px solid black;
+    /* Customize border color as needed */
+    padding: 10px;
+}
+
+.admision .fila-5 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: solid black 1px;
+}
+
+.admision .fila-5>* {
+    /* Target all direct child elements */
+    outline: 1px solid black;
+    /* Customize border color as needed */
+    padding: 10px;
+}
+
+.admision .fila-6 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: solid black 1px;
+}
+
+.admision .fila-6>* {
+    /* Target all direct child elements */
+    outline: 1px solid black;
+    /* Customize border color as needed */
+    padding: 10px;
+}
 input {
     width: 100%;
 }

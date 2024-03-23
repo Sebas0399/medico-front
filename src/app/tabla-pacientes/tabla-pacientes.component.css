@@ -1,0 +1,24 @@
+@import "primeicons/primeicons.css";
+.card-form {
+    margin: 0 auto; /* Centrar el formulario horizontalmente */
+    padding: 20px; /* Espaciado interno */
+}
+
+.card-form div {
+    margin-bottom: 15px; /* Espaciado entre elementos del formulario */
+}
+
+.card-form label {
+    display: block; /* Mostrar etiquetas en una línea separada */
+    margin-bottom: 5px; /* Espaciado inferior de las etiquetas */
+}
+
+.card-form input {
+    width: 100%; /* Ancho completo para los campos de entrada */
+    padding: 8px; /* Espaciado interno de los campos de entrada */
+}
+
+.card-form .p-button {
+    width: 100%; /* Ancho completo para el botón */
+    margin-top: 15px; /* Espaciado superior del botón */
+}
