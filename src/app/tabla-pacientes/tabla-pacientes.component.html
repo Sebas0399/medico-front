@@ -30,7 +30,7 @@
 </p-dialog>
 <!-- Modal crear nueva historia clinica -->
 <p-dialog header="Ingrese los datos" [(visible)]="visibleNuevaHistoria" [style]="{width: '75vw'} " [modal]="true">
-    <div class="card-form">
+    <div class="card-form" >
         <div>
             <label for="enfermedadActual">Enfermedad Actual</label>
             <input pInputText id="enfermedadActual" [(ngModel)]="historiaClinicaIngresar.enfermedadActual" />
@@ -55,7 +55,7 @@
 </p-dialog>
 <!-- Modal crear nuevo paciente -->
 <p-dialog header="Nuevo Paciente" [(visible)]="visiblePaciente" [style]="{width: '75vw'} " [modal]="true">
-    <div class="card-form">
+    <div class="card-form" id="form-paciente">
         <div>
             <label for="cedula">Cedula</label>
             <input pInputText id="cedula" [(ngModel)]="pacienteIngresar.cedula" />
@@ -109,8 +109,7 @@
 
         <div>
             <label for="fechaNacimiento">Fecha nacimiento</label>
-            <p-calendar [(ngModel)]="pacienteIngresar.fechaNacimiento" styleClass="calendario-compacto"
-                [inputStyle]="{'width': '100px;'}" [panelStyle]="{'max-width': '200px;'}"></p-calendar>
+            <input pInputText  [(ngModel)]="pacienteIngresar.fechaNacimiento" />
         </div>
 
         <div>

@@ -62,7 +62,14 @@ export class TablaPacientesComponent implements OnInit {
     insertarPacienteFachada(this.pacienteIngresar).then((res) => {
       console.log(res)
       this.messageService.add({
-        severity: 'error', summary: 'Success', detail: 'Paciente insertado'
+        severity: 'success', summary: 'OK', detail: 'Paciente insertado correctamente'
+      })
+      this.pacienteIngresar=new Paciente()
+      this.visiblePaciente=false
+
+    }).catch((err)=>{
+      this.messageService.add({
+        severity: 'error', summary: 'Ocurrio un error', detail: 'Paciente no insertado'
       })
     })
   }
@@ -70,7 +77,11 @@ export class TablaPacientesComponent implements OnInit {
     this.historiaClinicaIngresar.paciente=this.actualPaciente
     insertarHistoriaClinicaFachada(this.historiaClinicaIngresar).then((res)=>{
       this.messageService.add({
-        severity: 'error', summary: 'Success', detail: 'Historia clinica insertada'
+        severity: 'success', summary: 'OK', detail: 'Historia clinica insertada correctamente'
+      })
+    }).catch((err)=>{
+      this.messageService.add({
+        severity: 'error', summary: 'Ocurrio un error', detail: 'Historia clinica no insertada'
       })
     })
   }
