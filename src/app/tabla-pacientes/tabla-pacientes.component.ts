@@ -14,9 +14,11 @@ import { FormularioPacienteComponent } from '../formulario-paciente/formulario-p
 
 import { obtenerPacienteNombreFachada } from './helpers/getPacientesNombre';
 import { insertarHistoriaClinicaFachada } from './helpers/saveHistoriaClinica';
+import { obtenerHistoriaClinicaPacienteFachada } from './helpers/getHistoriaClinicaPaciente';
+
 import { Paciente } from '../../domain/paciente';
 import { HistoriaClinica } from '../../domain/historiaClinica';
-import * as Yup from 'yup';
+
 @Component({
   selector: 'app-tabla-pacientes',
   standalone: true,
@@ -37,9 +39,9 @@ import * as Yup from 'yup';
   styleUrl: './tabla-pacientes.component.css',
 })
 export class TablaPacientesComponent implements OnInit {
-  
- 
-  constructor(private messageService: MessageService) {}
+
+
+  constructor(private messageService: MessageService) { }
   pacientes!: Paciente[];
   actualPaciente!: Paciente;
   historiaClinicaIngresar!: HistoriaClinica;
@@ -50,12 +52,12 @@ export class TablaPacientesComponent implements OnInit {
   visiblePaciente = false;
   visibleNuevaHistoria = false;
 
+
   ngOnInit(): void {
     this.actualPaciente = new Paciente();
     this.historiaClinicaIngresar = new HistoriaClinica();
   }
   consultarPorNombre() {
-    console.log('Consultando');
     this.buscandoPacientes = true;
     obtenerPacienteNombreFachada(this.nombre).then((res) => {
       this.pacientes = res;
@@ -66,11 +68,12 @@ export class TablaPacientesComponent implements OnInit {
   }
   abirHistoriaClinica(data: Paciente) {
     this.actualPaciente = data;
-    this.historiasClinicas = data.historiasClinicas as HistoriaClinica[];
+    obtenerHistoriaClinicaPacienteFachada(data.cedula as string).then((res) => {
+      this.historiasClinicas = res;
+    });
     this.visibleHistorias = true;
   }
   pacienteGuardar() {
-    console.log('guardado');
     this.visiblePaciente = false;
   }
   guardarHistoriaClinica() {
@@ -82,6 +85,10 @@ export class TablaPacientesComponent implements OnInit {
           summary: 'OK',
           detail: 'Historia clinica insertada correctamente',
         });
+        obtenerHistoriaClinicaPacienteFachada(this.actualPaciente.cedula as string).then((res) => {
+          this.historiasClinicas = res;
+        });
+        this.visibleNuevaHistoria=false
       })
       .catch((err) => {
         this.messageService.add({
@@ -91,4 +98,5 @@ export class TablaPacientesComponent implements OnInit {
         });
       });
   }
+
 }

@@ -6,11 +6,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { Paciente } from '../../domain/paciente';
 import { InputMaskModule } from 'primeng/inputmask';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { insertarPacienteFachada } from './helpers/savePaciente';
 import { ToastModule } from 'primeng/toast';
 import * as Yup from 'yup';
-import { setLocale } from 'yup';
+import jsonData from '../../assets/datos.json';
 
 @Component({
   selector: 'app-formulario-paciente',
@@ -22,14 +23,27 @@ import { setLocale } from 'yup';
     ReactiveFormsModule,
     ToastModule,
     InputMaskModule,
+    DropdownModule
   ],
   providers: [MessageService],
   templateUrl: './formulario-paciente.component.html',
   styleUrl: './formulario-paciente.component.css',
 })
 export class FormularioPacienteComponent implements OnInit {
+
+  // //
+  datosMap = jsonData
+  provincias = [{ codigo: "", nombre: "", cantones: {} }]
+  selectedProvincia = { codigo: "", nombre: "" }
+  selectedCanton = { codigo: "", nombre: "" }
+  selectedParroquia = { codigo: "", nombre: "" }
+  listCantones = [{ codigo: "", nombre: "", parroquias: {} }]
+  listParroquias = [{ codigo: "", nombre: "" }]
+//
+  sexoList=["Masculino","Femenino"]
+  estadoCivilList=["Soltero/a","Casado/a","Divorciado/a","Viudo/a"]
   @Output() saveSuccess: EventEmitter<any> = new EventEmitter();
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService) { }
 
   pacienteIngresar!: Paciente;
 
@@ -42,6 +56,7 @@ export class FormularioPacienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.pacienteIngresar = new Paciente();
+    this.loadItems()
   }
   async guardarPaciente() {
     await this.validationSchema
@@ -79,5 +94,36 @@ export class FormularioPacienteComponent implements OnInit {
           detail: err,
         });
       });
+  }
+  loadItems() {
+    for (let i = 0; i < this.datosMap.length; i++) {
+      this.provincias.push({ codigo: this.datosMap[i].codigo, nombre: this.datosMap[i].nombre, cantones: this.datosMap[i].cantones });
+    }
+  }
+  
+  listarCantones() {
+    this.pacienteIngresar.provincia=this.selectedProvincia.nombre
+    this.listParroquias = [{ codigo: "", nombre: "" }]
+
+    this.datosMap.filter((p) => {
+      if (p.nombre === this.selectedProvincia.nombre) {
+        //Object.values(p.cantones).at
+        this.listCantones = Object.values(p.cantones)
+      }
+    })
+
+  }
+  listarParroquias() {
+    console.log(this.selectedCanton)
+    this.pacienteIngresar.canton=this.selectedCanton.nombre;
+    this.listCantones.filter((c) => {
+      if (c.nombre === this.selectedCanton.nombre) {
+        this.listParroquias = Object.values(c.parroquias)
+      }
+    })
+    this.pacienteIngresar.parroquia=this.selectedParroquia.nombre
+    console.log("listando parroquias")
+
+    console.log(this.pacienteIngresar)
   }
 }

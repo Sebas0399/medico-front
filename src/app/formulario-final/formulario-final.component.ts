@@ -136,10 +136,6 @@ export class FormularioFinalComponent {
     for (let i = 0; i < this.datosMap.length; i++) {
       this.provincias.push({ codigo: this.datosMap[i].codigo, nombre: this.datosMap[i].nombre, cantones: this.datosMap[i].cantones });
     }
-
-
-
-
   }
   listarCantones() {
     console.log("Provincia seleccionada:", this.selectedProvincia);
