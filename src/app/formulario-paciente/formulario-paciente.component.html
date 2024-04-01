@@ -2,6 +2,8 @@
   <p-toast key="toastPaciente"></p-toast>
 
   <div class="card-form" id="form-paciente">
+    <h2>Datos</h2>
+
     <div>
       <label for="cedula">Cedula</label>
       <input pInputText id="cedula" [(ngModel)]="pacienteIngresar.cedula" />
@@ -44,8 +46,9 @@
 
     <div>
       <label for="parroquia">Parroquia</label>
-      <p-dropdown [filter]="true" filterBy="nombre" [options]="listParroquias" [(ngModel)]="pacienteIngresar.parroquia"
-        optionLabel="nombre" [showClear]="true" placeholder="Seleccione una parroquia"></p-dropdown>
+      <p-dropdown [filter]="true" filterBy="nombre" [options]="listParroquias" [(ngModel)]="selectedParroquia"
+        (ngModelChange)="seleccionarParroquia()" optionLabel="nombre" [showClear]="true"
+        placeholder="Seleccione una parroquia"></p-dropdown>
     </div>
 
 
@@ -71,10 +74,7 @@
       <input pInputText id="nacionalidad" [(ngModel)]="pacienteIngresar.nacionalidad" />
     </div>
 
-    <div>
-      <label for="grupoCultural">Grupo Cultural</label>
-      <input pInputText id="grupoCultural" [(ngModel)]="pacienteIngresar.grupoCultural" />
-    </div>
+
 
     <div>
       <label for="edad">Edad</label>
@@ -91,33 +91,21 @@
         [showClear]="true"></p-dropdown>
     </div>
 
-    <div>
-      <label for="instruccion">Instrucción ultimo año aprobado</label>
-      <input pInputText id="instruccion" [(ngModel)]="pacienteIngresar.instruccionEducativa" />
-    </div>
+
     <div>
       <label for="fechaAdmision">Fecha de admisión</label>
       <input pInputText id="fechaAdmision" [(ngModel)]="pacienteIngresar.fechaAdmision" placeholder="yyyy-mm-dd" />
     </div>
-    <div>
-      <label for="ocupacion">Ocupación</label>
-      <input pInputText id="ocupacion" [(ngModel)]="pacienteIngresar.ocupacion" />
-    </div>
-    <div>
-      <label for="empresaTrabajo">Empresa donde trabaja</label>
-      <input pInputText id="empresaTrabajo" [(ngModel)]="pacienteIngresar.empresaTrabajo" />
-    </div>
+
+
     <div>
       <label for="tipoSeguro">Tipo de seguro de salud</label>
       <input pInputText id="tipoSeguro" [(ngModel)]="pacienteIngresar.tipoSeguro" />
     </div>
 
+    <h2>Contacto de Emergencia</h2>
+
     <div>
-      <label for="referido">Referido de:</label>
-      <input pInputText id="referido" [(ngModel)]="pacienteIngresar.referido" />
-    </div>
-    <div>
-      <h2>Contacto de Emergencia</h2>
 
       <label for="nombreEmergencia">En caso necesario avisar a:</label>
       <input pInputText id="nombreEmergencia" [(ngModel)]="pacienteIngresar.contactoEmergenciaNombre" />
@@ -134,23 +122,31 @@
       <label for="numeroContacto">Nº Teléfono</label>
       <input pInputText id="numeroContacto" [(ngModel)]="pacienteIngresar.contactoEmergenciaTelefono" />
     </div>
+    <h2>Antecedentes</h2>
+    <div>
+      <label for="app"> Antecedentes Personales Patológicos</label>
+      <input pInputText id="app" [(ngModel)]="pacienteIngresar.app" />
+    </div>
+    <div>
+      <label for="apf"> Antecedentes Personales Familiares</label>
+      <input pInputText id="apf" [(ngModel)]="pacienteIngresar.apf" />
+    </div>
+    <div>
+      <label for="alergias">Alergias conocidas por el paciente</label>
+      <input pInputText id="alergias" [(ngModel)]="pacienteIngresar.alergias" />
+    </div>
+    <div>
+      <label for="aqx">Antecedentes Quirúrgicos</label>
+      <input pInputText id="aqx" [(ngModel)]="pacienteIngresar.aqx" />
+    </div>
+    @if (pacienteIngresar.sexo=="Femenino") {
+    <div>
+      <label for="ago">Antecedentes Gineco-Obstétricos</label>
+      <input pInputText id="ago" [(ngModel)]="pacienteIngresar.ago" />
+    </div>
 
-    <div>
-      <label for="llegada">Forma de llegada</label>
-      <input pInputText id="llegada" [(ngModel)]="pacienteIngresar.llegadaForma" />
-    </div>
-    <div>
-      <label for="llegadaInformacion">Fuente de información</label>
-      <input pInputText id="llegadaInformacion" [(ngModel)]="pacienteIngresar.llegadaFuente" />
-    </div>
-    <div>
-      <label for="llegadaEntrega">Institución o persona que entrega al paciente</label>
-      <input pInputText id="llegadaEntrega" [(ngModel)]="pacienteIngresar.llegadaEntrega" />
-    </div>
-    <div>
-      <label for="llegadaNumero">Nº Teléfono</label>
-      <input pInputText id="llegadaNumero" [(ngModel)]="pacienteIngresar.llegadaTelefono" />
-    </div>
+    }
+
     <p-button label="Insertar" (onClick)="guardarPaciente()"></p-button>
   </div>
 </section>

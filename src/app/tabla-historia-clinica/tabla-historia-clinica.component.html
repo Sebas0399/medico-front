@@ -1,0 +1,89 @@
+<p-toast></p-toast>
+<p-dialog header="Antecedentes" [(visible)]="visibleAntecedentes" [style]="{ width: '75vw' ,height:'50vw'}"
+    [modal]="true">
+    <div class="card-form">
+        <div>
+            <label for="app"> Antecedentes Personales Patológicos</label>
+            <input pInputText id="app" [(ngModel)]="actualPaciente.app" />
+        </div>
+        <div>
+            <label for="apf"> Antecedentes Personales Familiares</label>
+            <input pInputText id="apf" [(ngModel)]="actualPaciente.apf" />
+        </div>
+        <div>
+            <label for="alergias">Alergias conocidas por el paciente</label>
+            <input pInputText id="alergias" [(ngModel)]="actualPaciente.alergias" />
+        </div>
+        <div>
+            <label for="aqx">Antecedentes Quirúrgicos</label>
+            <input pInputText id="aqx" [(ngModel)]="actualPaciente.aqx" />
+        </div>
+        @if (actualPaciente.sexo=="Femenino") {
+        <div>
+            <label for="ago">Antecedentes Gineco-Obstétricos</label>
+            <input pInputText id="ago" [(ngModel)]="actualPaciente.ago" />
+        </div>
+
+        }
+    </div>
+</p-dialog>
+
+<div class="flex flex-row">
+    <div class="flex align-items-center justify-content-center">
+        <p-button label="Nuevo" (onClick)="visibleNuevaHistoria = true"></p-button>
+    </div>
+    <div class="flex align-items-center justify-content-center ml-3">
+        <p-button icon="pi pi-eye" label="Ver Antecedentes" (onClick)="visibleAntecedentes = true"></p-button>
+
+    </div>
+
+</div>
+<div class="card">
+    <p-table [value]="historiasClinicas" [tableStyle]="{ 'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Fecha</th>
+                <th>Enfermedad Actual</th>
+                <th>Examen Fisico</th>
+                <th>Diagnostico Ingreso</th>
+                <th>Diagnostico Alta</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-historiaClinica>
+            <tr>
+                <td>{{ historiaClinica.fecha }}</td>
+                <td>{{ historiaClinica.enfermedadActual }}</td>
+                <td>{{ historiaClinica.examenFisico }}</td>
+                <td>{{ historiaClinica.diagnosticoIngreso }}</td>
+                <td>{{ historiaClinica.diagnosticoAlta }}</td>
+                <td> <p-button icon="pi pi-eye"
+                        (onClick)="visibleAntecedentes = true"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Ingrese los datos" [(visible)]="visibleNuevaHistoria" [style]="{ width: '75vw' }" [modal]="true">
+    <div class="card-form">
+        <div>
+            <label for="enfermedadActual">Enfermedad Actual</label>
+            <input pInputText id="enfermedadActual" [(ngModel)]="historiaClinicaIngresar.enfermedadActual" />
+        </div>
+        <div>
+            <label for="examenFisico">Exámen Físico</label>
+            <input pInputText id="examenFisico" [(ngModel)]="historiaClinicaIngresar.examenFisico" />
+        </div>
+        <div>
+            <label for="diagnosticoIngreso">Diagnostico Ingreso</label>
+            <input pInputText id="diagnosticoIngreso" [(ngModel)]="historiaClinicaIngresar.diagnosticoIngreso" />
+        </div>
+        <div>
+            <label for="diagnosticoAlta">Diagnostico Alta</label>
+            <input pInputText id="diagnosticoAlta" [(ngModel)]="historiaClinicaIngresar.diagnosticoAlta" />
+        </div>
+
+        <p-button label="Insertar" (onClick)="guardarHistoriaClinica()"></p-button>
+    </div>
+</p-dialog>

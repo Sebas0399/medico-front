@@ -11,10 +11,9 @@ import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 
 import { FormularioPacienteComponent } from '../formulario-paciente/formulario-paciente.component';
+import { TablaHistoriaClinicaComponent } from '../tabla-historia-clinica/tabla-historia-clinica.component';
 
 import { obtenerPacienteNombreFachada } from './helpers/getPacientesNombre';
-import { insertarHistoriaClinicaFachada } from './helpers/saveHistoriaClinica';
-import { obtenerHistoriaClinicaPacienteFachada } from './helpers/getHistoriaClinicaPaciente';
 
 import { Paciente } from '../../domain/paciente';
 import { HistoriaClinica } from '../../domain/historiaClinica';
@@ -32,6 +31,7 @@ import { HistoriaClinica } from '../../domain/historiaClinica';
     DialogModule,
     ToastModule,
     CalendarModule,
+    TablaHistoriaClinicaComponent
   ],
   providers: [MessageService],
 
@@ -44,7 +44,6 @@ export class TablaPacientesComponent implements OnInit {
   constructor(private messageService: MessageService) { }
   pacientes!: Paciente[];
   actualPaciente!: Paciente;
-  historiaClinicaIngresar!: HistoriaClinica;
   nombre!: '';
   historiasClinicas!: HistoriaClinica[];
   buscandoPacientes = false;
@@ -52,10 +51,10 @@ export class TablaPacientesComponent implements OnInit {
   visiblePaciente = false;
   visibleNuevaHistoria = false;
 
-
+  //
+  historiaClinicaid:any
   ngOnInit(): void {
     this.actualPaciente = new Paciente();
-    this.historiaClinicaIngresar = new HistoriaClinica();
   }
   consultarPorNombre() {
     this.buscandoPacientes = true;
@@ -66,37 +65,16 @@ export class TablaPacientesComponent implements OnInit {
 
     this.buscandoPacientes = false;
   }
-  abirHistoriaClinica(data: Paciente) {
-    this.actualPaciente = data;
-    obtenerHistoriaClinicaPacienteFachada(data.cedula as string).then((res) => {
-      this.historiasClinicas = res;
-    });
+  abirHistoriaClinica(id:number) {
+    this.historiaClinicaid=id
+    // obtenerHistoriaClinicaPacienteFachada(data.cedula as string).then((res) => {
+    //   this.historiasClinicas = res;
+    // });
     this.visibleHistorias = true;
   }
   pacienteGuardar() {
     this.visiblePaciente = false;
   }
-  guardarHistoriaClinica() {
-    this.historiaClinicaIngresar.paciente = this.actualPaciente;
-    insertarHistoriaClinicaFachada(this.historiaClinicaIngresar)
-      .then((res) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'OK',
-          detail: 'Historia clinica insertada correctamente',
-        });
-        obtenerHistoriaClinicaPacienteFachada(this.actualPaciente.cedula as string).then((res) => {
-          this.historiasClinicas = res;
-        });
-        this.visibleNuevaHistoria=false
-      })
-      .catch((err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Ocurrio un error',
-          detail: 'Historia clinica no insertada',
-        });
-      });
-  }
+ 
 
 }

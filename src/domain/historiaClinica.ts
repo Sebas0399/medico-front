@@ -7,4 +7,5 @@ export class HistoriaClinica {
     examenFisico: string;
     diagnosticoIngreso: string;
     diagnosticoAlta: string;
+    fecha:Date
 }

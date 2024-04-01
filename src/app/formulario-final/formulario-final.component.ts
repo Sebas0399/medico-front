@@ -13,7 +13,6 @@ import { MessageService } from 'primeng/api';
 
 //
 import { obtenerPacienteFachada } from "./helpers/getUsuario";
-import { insertarHistoriaClinicaFachada } from "../tabla-pacientes/helpers/saveHistoriaClinica";
 import { insertarPacienteFachada } from "./helpers/saveUsuario";
 import { insertarSignosVitales } from "./helpers/saveSignosVitales";
 
@@ -172,36 +171,6 @@ export class FormularioFinalComponent {
   showDialog() {
     this.visible = true;
   }
-  guardarHistoriaClinica() {
-    /*insertarPacienteFachada(this.paciente).then(r => {
-      insertarSignosVitales(this.signosVitales).then(r2 => {
-        this.messageService.add({
-          severity: 'success', summary: 'Success', detail: 'Paciente guardado'
-        })
-      })
-
-    }).catch(err => {
-      console.log(err)
-    })*/
-    var historiaClinica = {
-      paciente: this.paciente,
-      signosVitales: null,
-      tratamiento: this.tratamiento,
-      diagnistico: this.diagnostico,
-      enfermedadActual: this.enfermedadActual,
-      examenFisico: this.examenFisico,
-      tratamientos: this.tratamiento,
-      diagnosticoIngreso: this.diagnostico.ingreso,
-      diagnosticoAlta: this.diagnostico.alta
-    }
-    console.log(historiaClinica)
-    insertarHistoriaClinicaFachada(historiaClinica).then(r => {
-      this.messageService.add({
-        severity: 'success', summary: 'Success', detail: 'Historia Clinica insertada'
-      })
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
+  
 
 }

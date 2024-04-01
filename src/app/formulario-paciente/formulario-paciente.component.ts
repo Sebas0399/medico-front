@@ -39,9 +39,9 @@ export class FormularioPacienteComponent implements OnInit {
   selectedParroquia = { codigo: "", nombre: "" }
   listCantones = [{ codigo: "", nombre: "", parroquias: {} }]
   listParroquias = [{ codigo: "", nombre: "" }]
-//
-  sexoList=["Masculino","Femenino"]
-  estadoCivilList=["Soltero/a","Casado/a","Divorciado/a","Viudo/a"]
+  //
+  sexoList = ["Masculino", "Femenino"]
+  estadoCivilList = ["Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a"]
   @Output() saveSuccess: EventEmitter<any> = new EventEmitter();
   constructor(private messageService: MessageService) { }
 
@@ -49,9 +49,11 @@ export class FormularioPacienteComponent implements OnInit {
 
   validationSchema: Yup.Schema<Paciente> = Yup.object({
     cedula: Yup.string()
-      .required('Cédula obligatoria')
       .min(10, 'Cédula no válida'),
-    fechaNacimiento: Yup.date().required('Fecha de nacimiento obligatoria'),
+    fechaAdmision: Yup.date().required('Fecha de admisión obligatoria'),
+    apellidoPaterno: Yup.string().required('Apellido paterno obligatorio'),
+    primerNombre:Yup.string().required('Primer nombre obligatorio'),
+    numeroTelefono:Yup.string().required('Número de teléfono obligatorio')
   });
 
   ngOnInit(): void {
@@ -73,12 +75,10 @@ export class FormularioPacienteComponent implements OnInit {
 
             this.pacienteIngresar = new Paciente();
             this.saveSuccess.emit(null);
-            //      this.visiblePaciente=false
           })
           .catch((err) => {
             this.messageService.add({
               key: 'toastPaciente',
-
               severity: 'error',
               summary: 'Ocurrio un error',
               detail: 'Paciente no insertado',
@@ -86,12 +86,11 @@ export class FormularioPacienteComponent implements OnInit {
           });
       })
       .catch((err) => {
-        console.log(err);
         this.messageService.add({
           key: 'toastPaciente',
-          severity: 'error',
-          summary: 'OK',
-          detail: err,
+          severity: 'warn',
+          summary: 'Error',
+          detail: err.errors,
         });
       });
   }
@@ -100,9 +99,9 @@ export class FormularioPacienteComponent implements OnInit {
       this.provincias.push({ codigo: this.datosMap[i].codigo, nombre: this.datosMap[i].nombre, cantones: this.datosMap[i].cantones });
     }
   }
-  
+
   listarCantones() {
-    this.pacienteIngresar.provincia=this.selectedProvincia.nombre
+    this.pacienteIngresar.provincia = this.selectedProvincia.nombre
     this.listParroquias = [{ codigo: "", nombre: "" }]
 
     this.datosMap.filter((p) => {
@@ -115,15 +114,14 @@ export class FormularioPacienteComponent implements OnInit {
   }
   listarParroquias() {
     console.log(this.selectedCanton)
-    this.pacienteIngresar.canton=this.selectedCanton.nombre;
+    this.pacienteIngresar.canton = this.selectedCanton.nombre;
     this.listCantones.filter((c) => {
       if (c.nombre === this.selectedCanton.nombre) {
         this.listParroquias = Object.values(c.parroquias)
       }
     })
-    this.pacienteIngresar.parroquia=this.selectedParroquia.nombre
-    console.log("listando parroquias")
-
-    console.log(this.pacienteIngresar)
+  }
+  seleccionarParroquia() {
+    this.pacienteIngresar.parroquia = this.selectedParroquia.nombre
   }
 }

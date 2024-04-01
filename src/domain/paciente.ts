@@ -14,29 +14,23 @@ export class Paciente {
     fechaNacimiento?: Date;
     lugarNacimiento?: string;
     nacionalidad?: string;
-    grupoCultural?: string;
     edad?: number;
     sexo?: string;
     estadoCivil?: string;
-    instruccionEducativa?: string;
     fechaAdmision?: Date;
-    ocupacion?: string;
-    empresaTrabajo?: string;
     tipoSeguro?: string;
-    referido?: string;
+    //contacto de emergencia
     contactoEmergenciaNombre?: string;
     contactoEmergenciaAfinidad?: string;
     contactoEmergenciaDireccion?: string;
     contactoEmergenciaTelefono?: string;
-    llegadaForma?: string;
-    llegadaFuente?: string;
-    llegadaEntrega?: string;
-    llegadaTelefono?: string;
+    //Antecedentes
     app?: string;
     apf?: string;
     alergias?: string;
     aqx?: string;
     ago?: string;
-    historiasClinicas?:HistoriaClinica[]
-    
+    //historia clinica
+    historiasClinicas?: HistoriaClinica[]
+
 }
