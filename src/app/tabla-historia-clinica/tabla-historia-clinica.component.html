@@ -1,6 +1,6 @@
 <p-toast></p-toast>
-<p-dialog header="Antecedentes" [(visible)]="visibleAntecedentes" [style]="{ width: '75vw' ,height:'50vw'}"
-    [modal]="true">
+<p-dialog header="Antecedentes" [(visible)]="visibleAntecedentes" [style]="{ width: '75vw' }" [modal]="true"
+    appendTo="body">
     <div class="card-form">
         <div>
             <label for="app"> Antecedentes Personales Patológicos</label>
@@ -27,7 +27,85 @@
         }
     </div>
 </p-dialog>
+<!-- ver historia clinica completa -->
+<p-dialog header="Historia Clinica" [(visible)]="visibleHistoriaClinica" [style]="{ width: '75vw' }" [modal]="true"
+    appendTo="body">
+    <div class="card-form">
+        <div>
+            <label for="enfermedadActual">Enfermedad Actual</label>
+            <input pInputText id="enfermedadActual" [(ngModel)]="actualHistoriaClinica.enfermedadActual" />
+        </div>
+        <div>
+            <label for="examenFisico">Exámen Físico</label>
+            <input pInputText id="examenFisico" [(ngModel)]="actualHistoriaClinica.examenFisico" />
+        </div>
+        <div>
+            <label for="diagnosticoIngreso">Diagnostico Ingreso</label>
+            <input pInputText id="diagnosticoIngreso" [(ngModel)]="actualHistoriaClinica.diagnosticoIngreso" />
+        </div>
+        <div>
+            <label for="diagnosticoAlta">Diagnostico Alta</label>
+            <input pInputText id="diagnosticoAlta" [(ngModel)]="actualHistoriaClinica.diagnosticoAlta" />
+        </div>
+        @if (actualHistoriaClinica.indicaciones!=null) {
+        <div>
 
+            <label for="indicaciones">Indicaciones</label>
+
+            @for (indicacion of actualHistoriaClinica.indicaciones; track $index) {
+            <input pInputText id="indicaciones" [(ngModel)]="actualHistoriaClinica.indicaciones[$index]" class="mb-2" />
+
+            }
+
+
+        </div>
+        }
+        @if (actualHistoriaClinica.medicamento!=null) {
+        <div>
+
+            <label for="medicamento">Medicamento</label>
+            @for (medicamneto of actualHistoriaClinica.medicamento; track $index) {
+            <input pInputText id="medicamento" [(ngModel)]="actualHistoriaClinica.medicamento[$index]" class="mb-2" />
+            }
+
+        </div>
+        }
+    </div>
+</p-dialog>
+<!-- Examenes -->
+<p-dialog header="Examenes" [(visible)]="visibleExamenes" [style]="{ width: '75vw' }" [modal]="true" appendTo="body">
+    <p-table [value]="actualHistoriaClinica.examenes" [tableStyle]="{ 'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+
+                <th>Fecha</th>
+                <th>Exámen</th>
+                <th>Abrir</th>
+                <th>Subir</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-examen>
+            <tr>
+                <td>{{ examen.id }}</td>
+
+                <td>{{ examen.fecha }}</td>
+                <td>{{ examen.examen }}</td>
+                <td>{{ examen.ruta }}</td>
+                <td><p-fileUpload mode="basic" chooseLabel="Subir" name="examen"
+                        [url]="'http://localhost:8080/upload/examen?id=' + actualHistoriaClinica.id+'&uuid='+examen.id"
+                        accept="application/pdf" [maxFileSize]="1000000" [auto]="true"
+                        (onUpload)="onUpload($event)"></p-fileUpload>
+                </td>
+
+                <!-- <td>{{ historiaClinica.examenes }}</td> -->
+
+
+
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
 <div class="flex flex-row">
     <div class="flex align-items-center justify-content-center">
         <p-button label="Nuevo" (onClick)="visibleNuevaHistoria = true"></p-button>
@@ -47,7 +125,8 @@
                 <th>Examen Fisico</th>
                 <th>Diagnostico Ingreso</th>
                 <th>Diagnostico Alta</th>
-                <th></th>
+                <th>Exámen</th>
+                <th>Ver</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-historiaClinica>
@@ -57,14 +136,27 @@
                 <td>{{ historiaClinica.examenFisico }}</td>
                 <td>{{ historiaClinica.diagnosticoIngreso }}</td>
                 <td>{{ historiaClinica.diagnosticoAlta }}</td>
-                <td> <p-button icon="pi pi-eye"
-                        (onClick)="visibleAntecedentes = true"></p-button>
+                <!-- <td>{{ historiaClinica.examenes }}</td> -->
+                <td>
+                    @if (getPendienteSubida(historiaClinica.examenes)==="ok") {
+                    <p-button label="ok" icon="pi pi-check" severity="success"
+                        (onClick)="mostrarExamenes(historiaClinica)"></p-button>
+
+                    }
+                    @else {
+                    <p-button label="pendiente" icon="pi pi-exclamation-triangle" severity="warning"
+                        (onClick)="mostrarExamenes(historiaClinica)"></p-button>
+
+                    }
+                </td>
+
+                <td> <p-button icon="pi pi-eye" (onClick)="mostrarHistoriaClinica(historiaClinica)"></p-button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-
+<!-- Nueva historia clinica -->
 <p-dialog header="Ingrese los datos" [(visible)]="visibleNuevaHistoria" [style]="{ width: '75vw' }" [modal]="true">
     <div class="card-form">
         <div>
@@ -84,6 +176,36 @@
             <input pInputText id="diagnosticoAlta" [(ngModel)]="historiaClinicaIngresar.diagnosticoAlta" />
         </div>
 
+        <div>
+            <label for="indicaciones">Indicaciones</label>
+
+            @for (indicacion of historiaClinicaIngresar.indicaciones; track $index) {
+            <input pInputText id="indicaciones" [(ngModel)]="historiaClinicaIngresar.indicaciones[$index]"
+                class="mb-2" />
+
+            }
+            <p-button label="Añadir" (onClick)="addIndicaciones()"></p-button>
+
+        </div>
+
+        <div>
+            <label for="medicamento">Medicamento</label>
+            @for (medicamneto of historiaClinicaIngresar.medicamento; track $index) {
+            <input pInputText id="medicamento" [(ngModel)]="historiaClinicaIngresar.medicamento[$index]" class="mb-2" />
+
+            }
+            <p-button label="Añadir" (onClick)="addMedicamento()"></p-button>
+        </div>
+
+
+        <div>
+            <label for="examen">Exámen</label>
+            @for (examen of examenesInsertar; track $index) {
+            <input pInputText id="examen" [(ngModel)]="examenesInsertar[$index]" class="mb-2" />
+
+            }
+            <p-button label="Añadir" (onClick)="addExamen()"></p-button>
+        </div>
         <p-button label="Insertar" (onClick)="guardarHistoriaClinica()"></p-button>
     </div>
 </p-dialog>

@@ -8,4 +8,7 @@ export class HistoriaClinica {
     diagnosticoIngreso: string;
     diagnosticoAlta: string;
     fecha:Date
+    indicaciones:Array<string>=[]
+    medicamento:Array<string>=[]
+    examenes: { [key: string]: string }[]=[]
 }

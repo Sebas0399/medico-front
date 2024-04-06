@@ -1,7 +1,8 @@
 <p-toast></p-toast>
 
 <!-- Historia clinica -->
-<p-dialog header="Historia Clinica" [(visible)]="visibleHistorias" [style]="{ width: '75vw' ,height:'50vw'}" [modal]="true">
+<p-dialog header="Historia Clinica" [(visible)]="visibleHistorias" [style]="{ width: '75vw' ,height:'50vw'}"
+  [modal]="true">
   @if(historiaClinicaid!=null){
   <app-tabla-historia-clinica [id]="historiaClinicaid"></app-tabla-historia-clinica>
 
@@ -19,11 +20,11 @@
   <input type="text" pInputText [(ngModel)]="nombre" />
 </span>
 
-<p-button label="Consultar" (onClick)="consultarPorNombre()" [loading]="buscandoPacientes"></p-button>
-<p-button label="Nuevo" (onClick)="visiblePaciente = true"></p-button>
+<p-button label="Consultar" (onClick)="consultarPorNombre()" [loading]="buscandoPacientes" class="ml-2"></p-button>
+<p-button label="Nuevo" (onClick)="visiblePaciente = true" class="ml-2"></p-button>
 
-<div class="card">
-  <p-table [value]="pacientes" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="card mt-2">
+  <p-table [value]="pacientes" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
       <tr>
         <th>Cedula</th>
@@ -45,6 +46,12 @@
           <p-button label="Nueva" (onClick)="abirHistoriaClinica(paciente.id)"></p-button>
         </td>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
     </ng-template>
   </p-table>
 </div>

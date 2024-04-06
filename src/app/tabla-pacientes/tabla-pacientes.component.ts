@@ -52,21 +52,19 @@ export class TablaPacientesComponent implements OnInit {
   visibleNuevaHistoria = false;
 
   //
-  historiaClinicaid:any
+  historiaClinicaid: any
   ngOnInit(): void {
     this.actualPaciente = new Paciente();
   }
-  consultarPorNombre() {
+  async consultarPorNombre() {
     this.buscandoPacientes = true;
-    obtenerPacienteNombreFachada(this.nombre).then((res) => {
+    await obtenerPacienteNombreFachada(this.nombre).then((res) => {
       this.pacientes = res;
-      console.log(res, this.nombre);
     });
-
     this.buscandoPacientes = false;
   }
-  abirHistoriaClinica(id:number) {
-    this.historiaClinicaid=id
+  abirHistoriaClinica(id: number) {
+    this.historiaClinicaid = id
     // obtenerHistoriaClinicaPacienteFachada(data.cedula as string).then((res) => {
     //   this.historiasClinicas = res;
     // });
@@ -75,6 +73,6 @@ export class TablaPacientesComponent implements OnInit {
   pacienteGuardar() {
     this.visiblePaciente = false;
   }
- 
+
 
 }
