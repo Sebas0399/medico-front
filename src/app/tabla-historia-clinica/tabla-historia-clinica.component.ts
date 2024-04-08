@@ -19,17 +19,19 @@ import { insertarHistoriaClinicaFachada } from './helpers/saveHistoriaClinica';
 import { obtenerPacienteFachada } from './helpers/getPacienteId';
 import { Paciente } from '../../domain/paciente';
 import { Examen } from '../../domain/examen';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-tabla-historia-clinica',
   standalone: true,
-  imports: [FileUploadModule,ToastModule, InputTextModule, TableModule, DialogModule, ButtonModule, ButtonModule, FormsModule, ReactiveFormsModule, TagModule],
+  imports: [FileUploadModule, ToastModule, InputTextModule, TableModule, DialogModule, ButtonModule, ButtonModule, FormsModule, ReactiveFormsModule, TagModule],
   providers: [MessageService],
   templateUrl: './tabla-historia-clinica.component.html',
   styleUrl: './tabla-historia-clinica.component.css'
 })
 export class TablaHistoriaClinicaComponent implements OnInit {
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+    private localStorageService: LocalStorageService) { }
 
   historiasClinicas!: HistoriaClinica[];
   historiaClinicaIngresar!: HistoriaClinica;
@@ -38,14 +40,15 @@ export class TablaHistoriaClinicaComponent implements OnInit {
   visibleNuevaHistoria = false
   visibleAntecedentes = false
   visibleHistoriaClinica = false
-  visibleExamenes=false
+  visibleExamenes = false
   examenesInsertar!: string[]
-  
+
   ngOnInit(): void {
     this.historiaClinicaIngresar = new HistoriaClinica();
     this.actualPaciente = new Paciente();
     this.actualHistoriaClinica = new HistoriaClinica()
     this.examenesInsertar = new Array();
+    console.log(this.localStorageService.getUsuario())
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -68,7 +71,7 @@ export class TablaHistoriaClinicaComponent implements OnInit {
       this.examenesInsertar.forEach((exa) => {
         const uuid = uuidv4();
 
-        this.historiaClinicaIngresar.examenes.push({ examen: exa, ruta: '' ,id:uuid})
+        this.historiaClinicaIngresar.examenes.push({ examen: exa, ruta: '', id: uuid })
       })
     }
     console.log(this.historiaClinicaIngresar)
@@ -131,11 +134,11 @@ export class TablaHistoriaClinicaComponent implements OnInit {
 
     return 'ok'
   }
-  mostrarExamenes(historiaClinica:HistoriaClinica){
+  mostrarExamenes(historiaClinica: HistoriaClinica) {
     this.actualHistoriaClinica = historiaClinica
-    this.visibleExamenes=true
+    this.visibleExamenes = true
   }
-  onUpload(event:UploadEvent){
+  onUpload(event: UploadEvent) {
     this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
 
   }

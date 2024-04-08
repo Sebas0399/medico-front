@@ -32,7 +32,10 @@
         <th>Apellido</th>
         <th>Edad</th>
         <th>Sexo</th>
+        @if (usuarioRol=="ADMINISTRADOR") {
         <th>Historia Clinica</th>
+        }
+        <th>Ver</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-paciente>
@@ -42,8 +45,15 @@
         <td>{{ paciente.apellidoPaterno }}</td>
         <td>{{ paciente.edad }}</td>
         <td>{{ paciente.sexo }}</td>
+        @if (usuarioRol=="ADMINISTRADOR") {
+
         <td>
           <p-button label="Nueva" (onClick)="abirHistoriaClinica(paciente.id)"></p-button>
+        </td>
+        }
+        <td>
+          <p-button icon="pi pi-eye" (onClick)="abirHistoriaClinica(paciente.id)"></p-button>
+
         </td>
       </tr>
     </ng-template>

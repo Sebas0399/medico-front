@@ -9,7 +9,6 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
-
 import { FormularioPacienteComponent } from '../formulario-paciente/formulario-paciente.component';
 import { TablaHistoriaClinicaComponent } from '../tabla-historia-clinica/tabla-historia-clinica.component';
 
@@ -17,6 +16,7 @@ import { obtenerPacienteNombreFachada } from './helpers/getPacientesNombre';
 
 import { Paciente } from '../../domain/paciente';
 import { HistoriaClinica } from '../../domain/historiaClinica';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-tabla-pacientes',
@@ -41,7 +41,9 @@ import { HistoriaClinica } from '../../domain/historiaClinica';
 export class TablaPacientesComponent implements OnInit {
 
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+    private localStorageService: LocalStorageService
+  ) { }
   pacientes!: Paciente[];
   actualPaciente!: Paciente;
   nombre!: '';
@@ -50,11 +52,13 @@ export class TablaPacientesComponent implements OnInit {
   visibleHistorias = false;
   visiblePaciente = false;
   visibleNuevaHistoria = false;
-
+  usuarioRol!:string
   //
   historiaClinicaid: any
   ngOnInit(): void {
     this.actualPaciente = new Paciente();
+    this.usuarioRol=this.localStorageService.getUsuario()
+
   }
   async consultarPorNombre() {
     this.buscandoPacientes = true;
